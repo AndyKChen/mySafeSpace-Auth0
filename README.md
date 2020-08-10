@@ -5,14 +5,7 @@
 
 <h4 align="center">Messaging WebApp for a Safer and Closer Online Community</h4>
 
-      
-<p align="center">
-  <a href="#about">About</a> •
-  <a href="#usage">Usage</a> •
-  <a href="#author">Author</a> •
-  <a href="#contact">Contact</a> •
-  <a href="#license">License</a>
-</p>
+
 
 ---
 
