@@ -31,7 +31,7 @@ url_nlp = ('https://language.googleapis.com/v1/documents:analyzeSentiment?key=' 
 socketio = SocketIO(app)
 
 # Set up database
-# postgres://oobmeddlzlecss:3fe732ad03fae55f28fbe06f600c8b3d8464073e3a99385a0326f509fa9ed5bc@ec2-3-229-210-93.compute-1.amazonaws.com:5432/d4bk3mrofa9d8k
+
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
