@@ -58,7 +58,6 @@ As the internet begins to play a larger role in our lives, it has become a mediu
 <li>Messaging: Socket-IO</li>
 <li>Database: Postgres </li>
 <li>Deployment: Heroku</li>
-<li>Framework: Flask</li>
 <li>Machine Learning: NLTK, pandas, numpy, scikit-learn</li>
 <li>API: Perspective API, Google Cloud</li>
 </ul>
