@@ -21,94 +21,64 @@
 <table>
 <tr>
 <td>
-  
-**myChat** is a **instant messaging web-app** that allows users to message friends and interact with community created channels **for free.** Users simply register a new account that is secured with a 256-bit encryption algorithm.
 
-**Safer Environment:** Perspective API used to determine if a message contains potentially toxic, insulting, racially insensitive, threatening, or sexually explicit content in real-time. If such a message is detected, user is prompted with a warning and short timeout to re-think their message.
+  
+**myChat** is an **instant messaging web-app** that promotes mental health and digital citizenship. Users simply register a new account that is secured with a 256-bit encryption algorithm.
+
+**Safer Environment:** Perspective API used to determine if a message contains potentially toxic, insulting, racially insensitive, threatening, or sexually explicit content in real-time. If such a message is detected, user is prompted with a warning and short timeout to re-think their message. 
 <ul>
 	<li>Combat effects of cyberbullying and harrassment</li>
 	<li>Focus on mental health</li>
-	<li>Improve conversations and community connection with more welcoming environment for all ages</>
+	<li>Improve conversations and community connection with more welcoming environment for all ages<li/>
+<li>Grow as a digital citizen</li>
 </ul>
+
+**Data Analytics**: Message sentiment is also analyzed over time using machine learning and displayed in an **intuitive dashboard UI.** Weekly and daily breakdowns are available for both message sentiment and message content so users can gauge their mood and digital citizenship over time. 
 
 It comes **filled** with **features** including a wide selection of cartoon avatars, the ability to add friends, create a social media profile, and create channels. The webapp is optimized for desktop and mobile devices
 
 **Try it here:** http://mysafespace.herokuapp.com/ <br>
-Mobile Users: Add to homescreen to view in fullscreen.
+Mobile Users: Add to home screen to view in fullscreen.
+
+Since this is a prototype, if there are any bugs please contact me for fixes.
+
+Submission to Auth0 Hackathon for category of **connecitivity** 
+
+## Inspiration
+With the rapid growth of the internet in recent years, has come greater connectivity between people all over the world. However, there is always the concern of digital safety when it comes to things like cyberbullying, harassment and predators online. 
+
+As the internet begins to play a larger role in our lives, it has become a medium for us to express our feelings and personal life. Especially with COVID-19 and social distancing, there is a greater need for online connectivity. A goal of this project was to use technology to improve conversations and to better understand our feelings and emotions. 
 
 
-<img src = static/images/demo-mobile.gif width=300> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <img src = static/images/demo-mobile-2.gif width=300>
+## How I built it
+<ul>
+<li>Framework: Flask</li>
+<li>Languages: Python, Javascript, HTML/CSS/Jinja2, SQL</li>
+<li>Messaging: Socket-IO</li>
+<li>Database: Postgres </li>
+<li>Deployment: Heroku</li>
+<li>Framework: Flask</li>
+<li>Machine Learning: NLTK, pandas, numpy, scikit-learn</li>
+<li>API: Perspective API, Google Cloud</li>
+</ul>
 
-<p align="right">
-<sub>(Messaging and Channel Mobile UI Demo)</sub>
-</p>
+## Accomplishments that I'm proud of
+<ul>
+<li>Although it is a protoype, there are a wide range of basic features found in popular messaging platforms</li>
+<li>Succesful usage of API to classify content of user messages</li>
+<li>Timeout function and warning popup</li>
+<li>Dashboard UI with data analytics of message sentiment and content</li>
+<li>Machine learning model to detect early signs of depression and give user's useful resources related to mental health</li>
+</ul>
 
-</td>
-</tr>
+## What's next for mySafeSpace
+<ul>
+<li>Security Features: Using Auth0 for two factor authentication. </li>
+<li>Scaling up: As users increase, change deployment method to scale. </li>
+<li>New Features: Create private invite-only groupchats, fix mobile UI, Gamerooms</li>
 
-</table>
-<table>
-<tr>
-<td>
-	<img src = static/images/demo-desktop.jpg width=1080>
+</ul>
 
-<p align="right">
-<sub>(Deskptop Chat UI)</sub>
-</p>
-
-
-
-</td>
-</tr>
-
-</table>
-
-
-## Technologies/Languages Used
-- Python, Javascript, HTML/CSS, Jinja, SQL
-- Flask 
-- Socket.io
-- Adminer Database Manager
-- Deployed via heroku
-
-
-
-## Usage
-
-```bash
-# Clone repo
-$ git clone https://github.com/AndyKChen/myChat.git
-
-# Install all dependencies
-$ pip install -r requirements.txt
-
-# Setup a database using a tool such as adminer and get the credentials
-
-# Set Environment Variables
-$ SET DATABASE_URL = "your database"
-$ SET SECRET = "your secret key"
-
-# Run
-$ python app.py
-
-# Go to 127.0.0.1:5000 on your web browser.
-```
-
-
-## Author
-Hi! I'm an 18 year-old aspiring software developer that is currently studying Computer Science at Waterloo. This is a small project I built to apply what I've learned in Web-Development. Feel free to reach out to talk about the project or just to say hello :)
-
-| <img src="https://logos-world.net/wp-content/uploads/2020/04/Linkedin-Logo-2003%E2%80%932011.png" alt="Andy Chen" width="100px">	|
-|:---------------------------------------------------------------------------------------------------------:	|
-|                                            **Andy Chen**                                            	|
-
-## Contact
-
-Reach out to me at one of the following places:
-
-- Website at [andychen.tech](google.ca)
-- Add me on Facebook [here](https://www.facebook.com/andyc32/)
-- E-Mail: **andychen2325@gmail.com**
 
 ## License
 
