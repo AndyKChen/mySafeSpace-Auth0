@@ -3,7 +3,7 @@
  mySafeSpace: Instant Messaging WebApp
 </h1>
 
-<h4 align="center">Messaging WebApp for a Safer and Closer Online Community</h4>
+<h4 align="center">Messaging WebApp for Mental Health and Digital Citizenship</h4>
 
 
 
