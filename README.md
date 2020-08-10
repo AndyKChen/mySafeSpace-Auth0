@@ -29,7 +29,7 @@
 <ul>
 	<li>Combat effects of cyberbullying and harrassment</li>
 	<li>Focus on mental health</li>
-	<li>Improve conversations and community connection with more welcoming environment for all ages<li/>
+	<li>Improve conversations and community connection with more welcoming environment for all ages</li>
 	<li>Grow as a digital citizen</li>
 </ul>
 
