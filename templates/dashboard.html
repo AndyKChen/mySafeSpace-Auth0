@@ -1,0 +1,150 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block head %}
+
+<link href="{{ url_for('static', filename='css/dashboard.css') }}" type="text/css" rel="stylesheet" >
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css" integrity="sha512-SUJFImtiT87gVCOXl3aGC00zfDl6ggYAw5+oheJvRJ8KBXZrr/TMISSdVJ5bBarbQDRC2pR5Kto3xTR0kpZInA==" crossorigin="anonymous" />
+    <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js" integrity="sha512-QEiC894KVkN9Tsoi6+mKf8HaCLJvyA6QIRzY5KrfINXYuP9NxdIkRQhGq3BZi0J4I7V5SidGM3XUQ5wFiMDuWg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js" integrity="sha512-vBmx0N/uQOXznm/Nbkp7h0P1RfLSj0HQrFSzV8m7rOGyj30fYAOKHYvCNez+yM8IrfnW0TCodDEjRqf6fodf/Q==" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="dash-container">
+        <h1 class="h3 mb-2 text-gray-800" style="padding-top: 5vh;">My Dashboard</h1>
+          <p>Review your chat sentiment and the content of your language over time. The goal of mySafeSpace
+              is to create a place where everyone feels welcome. Look to decrease your use of harmful language and 
+              grow as a responsible digital citizen.
+          </p>
+          <div class="row">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary" id="line-title">Weekly Total Approved Vs. Harmful Messages</h6>
+                </div>
+                <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                </div>
+                <hr>
+                <p class="mb-4" id="line-desc">"Track the trends of your message content and digital footprint. Look to improve yourself <br>and create a safe space for everyone! Hover over each point for more details."</p>
+                <p>
+                    <ul>
+                        <li class="hidden" id="1">{{day1['atr_total']}}</li>
+                        <li class="hidden" id="2">{{day2['atr_total']}}</li>
+                        <li class="hidden" id="3">{{day3['atr_total']}}</li>
+                        <li class="hidden" id="4">{{day4['atr_total']}}</li>
+                        <li class="hidden" id="5">{{day5['atr_total']}}</li>
+                        <li class="hidden" id="6">{{day6['atr_total']}}</li>
+                        <li class="hidden" id="7">{{day7['atr_total']}}</li>
+                    </ul>
+                    <ul>
+                        <li class="hidden" id="8">{{day1['sentiment']['negative']}}</li>
+                        <li class="hidden" id="9">{{day2['sentiment']['negative']}}</li>
+                        <li class="hidden" id="10">{{day3['sentiment']['negative']}}</li>
+                        <li class="hidden" id="11">{{day4['sentiment']['negative']}}</li>
+                        <li class="hidden" id="12">{{day5['sentiment']['negative']}}</li>
+                        <li class="hidden" id="13">{{day6['sentiment']['negative']}}</li>
+                        <li class="hidden" id="14">{{day7['sentiment']['negative']}}</li>
+                    </ul>
+                    <ul>
+                        <li class="hidden" id="15">{{day1['sentiment']['positive']}}</li>
+                        <li class="hidden" id="16">{{day2['sentiment']['positive']}}</li>
+                        <li class="hidden" id="17">{{day3['sentiment']['positive']}}</li>
+                        <li class="hidden" id="18">{{day4['sentiment']['positive']}}</li>
+                        <li class="hidden" id="19">{{day5['sentiment']['positive']}}</li>
+                        <li class="hidden" id="20">{{day6['sentiment']['positive']}}</li>
+                        <li class="hidden" id="21">{{day7['sentiment']['positive']}}</li>
+                    </ul>
+                    <ul>
+                        <li class="hidden" id="22">{{day1['sentiment']['neutral']}}</li>
+                        <li class="hidden" id="23">{{day2['sentiment']['neutral']}}</li>
+                        <li class="hidden" id="24">{{day3['sentiment']['neutral']}}</li>
+                        <li class="hidden" id="25">{{day4['sentiment']['neutral']}}</li>
+                        <li class="hidden" id="26">{{day5['sentiment']['neutral']}}</li>
+                        <li class="hidden" id="27">{{day6['sentiment']['neutral']}}</li>
+                        <li class="hidden" id="28">{{day7['sentiment']['neutral']}}</li>
+                    </ul>
+                    <ul>
+                        <li class="hidden" id="a">{(breakdown['toxicity'])}</li>
+                        <li class="hidden" id="b">{{breakdown['insult']}}</li>
+                        <li class="hidden" id="c">{{breakdown['sexual']}}</li>
+                        <li class="hidden" id="d">{{breakdown['threat']}}</li>
+                        <li class="hidden" id="e">{{breakdown['identity']}}</li>
+                    </ul>
+                    <ul>
+                        <li class="hidden" id="f">{{day1['total']}}</li>
+                        <li class="hidden" id="g">{{day2['total']}}</li>
+                        <li class="hidden" id="h">{{day3['total']}}</li>
+                        <li class="hidden" id="i">{{day4['total']}}</li>
+                        <li class="hidden" id="j">{{day5['total']}}</li>
+                        <li class="hidden" id="k">{{day6['total']}}</li>
+                        <li class="hidden" id="l">{{day7['total']}}</li>
+                    </ul>
+                    <ul>
+                        <li class="hidden" id="d1">{{dates[0]}}</li>
+                        <li class="hidden" id="d2">{{dates[1]}}</li>
+                        <li class="hidden" id="d3">{{dates[2]}}</li>
+                        <li class="hidden" id="d4">{{dates[3]}}</li>
+                        <li class="hidden" id="d5">{{dates[4]}}</li>
+                        <li class="hidden" id="d6">{{dates[5]}}</li>
+                        <li class="hidden" id="d7">{{dates[6]}}</li>
+                    </ul>
+                </p>
+                </div>
+            </div>  
+            <div class="col-xl-4 col-lg-5">
+                <div class="shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary" id="pie-title">Daily Breakdown of Harmful Messages</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie pt-4">
+                    <canvas id="myPieChart"></canvas>
+                    </div>
+                    <hr>
+                    <p class="mb-4" id="pie-desc">Each colour represents a different category of a harmful message you sent. Hover over each 
+                    slice for more details.</p>
+                </div>
+                </div>
+            </div>
+            </div>
+            <button class = "btn btn-primary" id="toggle_sentiment">Toggle Sentiment Data</button>
+            <button class = "btn btn-primary" id="toggle_content">Toggle Content Data</button>
+        </div>
+
+        <div class="modal fade" id="popup" tabindex="-1" role="dialog" aria-labelledby="popup" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <i class="fa fa-hand-grab-o" aria-hidden="true" style="display:inline-block">
+                    <h5 class="modal-title" id="exampleModalLabel" style="display: inline-block;">Feeling Down? You're Not Alone.</h5>
+                  </i>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p id="warning-msg">It's okay to feel afraid, anxious, or alone. Talk to a trusted friend or family member! Here are some links to help with mental health: 
+                      <ul>
+                          <li><a href="https://ca.portal.gs/?gclid=CjwKCAjw97P5BRBQEiwAGflV6eMU5-H3bgCDYB8Zv7oxbuK5IXUhU7Iw0tfwLOD4JsG8NmwiGhnxTRoCw6oQAvD_BwE">Free Counseling</a></li>
+                          <li><a href="https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection/mental-health.html">COVID-19: Government Tips and Help</a></li>
+                          <li><a href="https://www.camh.ca/en/health-info/mental-health-101">Learn about mental health</a></li>
+                          <li><a href="https://www.crisisservicescanada.ca/en/">Suicide Prevention Line</a></li>
+                      </ul>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button id="modal-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup" style="display: none;">
+          </button>
+
+{% endblock %}

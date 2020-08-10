@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<link href="{{ url_for('static', filename='css/inbox.css') }}" type="text/css" rel="stylesheet" >
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+{% endblock %}
+
+{% block title %}
+    Channels
+{% endblock %}
+
+{% block content %}
+
+<div class="inbox-container">
+    <div id="frame">
+        <div id="sidepanel">
+          <div id="profile">
+            <div class="wrap">
+              <img id="profile-img" src="{{'../static/avatars/' + user_info[1]+ '.png'}}" class="online" alt="" />
+              <p id="profile-name">{{user_info[0]}}</p>
+              <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
+              <div id="status-options">
+                <ul>
+                  <li id="status-online" class="active"><span class="status-circle"></span> <p>Online</p></li>
+                  <li id="status-away"><span class="status-circle"></span> <p>Away</p></li>
+                  <li id="status-busy"><span class="status-circle"></span> <p>Busy</p></li>
+                  <li id="status-offline"><span class="status-circle"></span> <p>Offline</p></li>
+                </ul>
+              </div>
+              <div id="expanded">
+                <label class="label-inbox" for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i>
+                <span class="label other">{{user_info[2]}}</span></label>
+                <label class="label-inbox" for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i>
+                <span class="label other">{{user_info[3]}}</span></label>
+                <label class="label-inbox" for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i>
+                <span class="label other">{{user_info[4]}}</span></label>
+              </div>
+            </div>
+          </div>
+          <div id="search">
+            <label class="label-inbox" for=""><i class="fa fa-search" aria-hidden="true"></i></label>
+            <input type="text" placeholder="Search channels..." />
+          </div>
+          <div id="contacts">
+            <ul>
+              {% if not channels %}
+                <h3> No channels created yet :/</h3>
+              {% endif %}
+    
+              {% for channel in channels %}
+              <a href="/channel/{{channel[0]}}">
+                <li class="contact">
+                  <div class="wrap">
+                    <img src="{{'../static/channel_pics/' + channel[3] + '.png'}}" alt="" />
+                    <div class="meta">
+                      <p class="name">{{channel[1]}}</p>
+                      <p class="preview">{{channel[2]}}</p>
+                    </div>
+                  </div>
+                </li>
+              </a>
+              {% endfor %}
+    
+            </ul>
+          </div>
+          <div id="bottom-bar">
+            <a href="/create"><button id="addcontact" input type="submit"><i class="fa fa-plus-circle fa-fw" aria-hidden="true"></i> <span>New Channel</span></button></a>
+            <a href="/settings"><button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button></a>
+          </div>
+        </div>
+      </div>
+</div>
+  <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+  <script >
+  
+  $("#profile-img").click(function() {
+      $("#status-options").toggleClass("active");
+  });
+  
+  $(".expand-button").click(function() {
+    $("#profile").toggleClass("expanded");
+      $("#contacts").toggleClass("expanded");
+  });
+  
+  $("#status-options ul li").click(function() {
+      $("#profile-img").removeClass();
+      $("#status-online").removeClass("active");
+      $("#status-away").removeClass("active");
+      $("#status-busy").removeClass("active");
+      $("#status-offline").removeClass("active");
+      $(this).addClass("active");
+      
+      if($("#status-online").hasClass("active")) {
+          $("#profile-img").addClass("online");
+      } else if ($("#status-away").hasClass("active")) {
+          $("#profile-img").addClass("away");
+      } else if ($("#status-busy").hasClass("active")) {
+          $("#profile-img").addClass("busy");
+      } else if ($("#status-offline").hasClass("active")) {
+          $("#profile-img").addClass("offline");
+      } else {
+          $("#profile-img").removeClass();
+      };
+      
+      $("#status-options").removeClass("active");
+  });
+  
+
+  </script>
+
+{% endblock %}

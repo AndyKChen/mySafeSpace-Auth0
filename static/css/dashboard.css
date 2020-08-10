@@ -1,0 +1,47 @@
+.dash-container {
+    margin-top: 2rem;
+    width: 75%;
+    height:100vh;
+    background: whitesmoke;
+    margin-left: 13rem;
+}
+
+.hidden {
+    display:none;
+
+}
+
+.chart-area {
+    position: relative;
+    height: 10rem;
+    width: 100%;
+  }
+
+  .card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+  }
+
+  .py-3 {
+    padding-top: 1rem !important;
+  }
+
+  .card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #e3e6f0;
+    border-radius: 0.35rem;
+  }

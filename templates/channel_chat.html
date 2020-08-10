@@ -1,0 +1,137 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<script src="{{ url_for('static', filename='js/channel.js') }}"></script>
+<link href="{{ url_for('static', filename='css/chat.css') }}" type="text/css" rel="stylesheet" >
+{% endblock %}
+
+{% block title %}
+    Direct Messages
+{% endblock %}
+
+{% block content %}
+
+<body>
+    <div class="container" style="padding-top: 5vh;">
+        <div class="chatcontainer"></div>
+        <div class="text-center">
+            <h3 img style="display: inline;" ><img src="{{'../static/channel_pics/' + current_channel[3] + '.png'}}" width=40vw alt="" class="text-center"></h3>
+            <h3 img style="display: inline;">#{{current_channel[1]}}</h3>
+            <p class="text-center">{{current_channel[2]}}</p>
+        </div>
+
+          <div class="row">
+            {% for channel in channels %}  
+            <div id ="icon" style="margin-right: 10px">
+              <a href="/channel/{{channel[0]}}"><img src="{{'../static/channel_pics/' + channel[3] + '.png'}}" width=40vw alt="" /></a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="messaging">
+          <div class="inbox_msg">
+              <div class="mesgs">
+                <div class="msg_history" id="newmsg">
+                    <div style="margin:15px;">
+                        <p style="display: inline-block;">Logged in as&nbsp</p><p style="display: inline-block;" id="get-username">{{session.username}}</p>
+                    </div>  
+                  {% if not messages %}
+                    <p id="new_friend">Woohoo! A new channel! </p>
+                  {% endif %}
+                  {% for message in messages %}
+                    {% if message[5] == session.username %}
+                    <div class="outgoing_msg">
+                      <div class="sent_msg">
+                        <p>{{message[1]}}</p>
+                        <span class="time_date">{{message[2]}}</span> </div>
+                    </div>
+                    {% else %}
+                    <div class="incoming_msg">
+                        <div class="incoming_msg_img"> 
+                            <img src="{{'../static/avatars/' + avatars[message['sender_name']] + '.png'}}" alt="">
+                        </div>
+                        
+                      </figure>
+                      <div class="received_msg">
+                        <div class="received_withd_msg" aria-describedby="name">
+                          <small id="name">{{message["sender_name"]}}</small>
+                          <p>{{message[1]}}</p>
+                          <span class="time_date">{{message[2]}}</span></div>
+                      </div>
+                    </div>
+                    {% endif %}
+                  {% endfor %}
+                  <p id="joined" class="text-center"></p>
+                  <!--template for javascript outgoing-->
+                  <template id="outgoing_template">
+                    <div class="outgoing_msg">
+                      <div class="sent_msg">
+                        <p data-template="temp_message"></p>
+                        <span class="time_date" data-template="temp_time"></span> </div>
+                    </div>
+                  </template>
+                  <!--template for javascript incoming-->
+                  <template id="incoming_template">
+                    <div class="incoming_msg_img" data-template="temp_img">
+                      <img src="../static/avatars/orange.png" alt="">
+                    </div> 
+                      <div class="received_msg">
+                        <div class="received_withd_msg" aria-describedby="name">
+                          <small id="name" data-template="sender">User</small>
+                          <p data-template="temp_message"></p>
+                          <span class="time_date" data-template="temp_time"></span></div>
+                      </div>
+                  </template>
+                </div>
+                <div class="type_msg">
+                  <div class="input_msg_write">
+                    <input id="text" type="text" class="write_msg" placeholder="Type a message" />
+                    <button id="button-send" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </div>
+    </div>
+    <div class="modal fade" id="popup" tabindex="-1" role="dialog" aria-labelledby="popup" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true" style="display:inline-block">
+              <h5 class="modal-title" id="exampleModalLabel" style="display: inline-block;">Warning!</h5>
+            </i>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="warning-msg"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button id="modal-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup" style="visibility: hidden;">
+    </button>
+</body>
+
+<style>
+  .row {
+      margin-left: 5px;
+      list-style-type: none;
+      display: inline-block;
+      padding-left:10px;
+      overflow-x: scroll;
+      white-space: nowrap;
+      max-width: 95%;
+  }
+
+  .row::-webkit-scrollbar {
+    display: none;
+  }
+
+  #icon {
+      display: inline-block;
+  }
+</style>
+    
+{% endblock %}

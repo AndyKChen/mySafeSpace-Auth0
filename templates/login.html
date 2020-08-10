@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+<div class="main">
+<!-- Sing in  Form -->
+<section class="sign-in">
+    <div class="container">
+        <div class="signin-content">
+            <div class="signin-image">
+                <figure><img src="../static/images/loginimg.png" alt=""></figure>
+            </div>
+
+            <div class="signin-form">
+                <h2 class="form-title">Login or <a href="/register">Register</a></h2>
+                <form method="POST" class="register-form" id="login-form">
+                    <div class="form-group">
+                        <label class="login-register" for="user"><i class="fa fa-user"></i></label>
+                        <input type="text" name="user" id="your_name" placeholder="Username or Email"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="login-register" for="pass"><i class="fa fa-lock"></i></label>
+                        <input type="password" name="pass" id="your_pass" placeholder="Password"/>
+                    </div>
+                    <div class="form-group form-button">
+                        <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</div>
+{% endblock %}
