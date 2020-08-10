@@ -64,7 +64,7 @@ As the internet begins to play a larger role in our lives, it has become a mediu
 </ul>
 
 ## How to use it
-Simply visit mysafespace.herokuapp.com for live version
+Simply visit **mysafespace.herokuapp.com** for live version
 
 Mobile Users: Add to home screen to view in fullscreen. Note it is not yet properly optimized for mobile.
 
