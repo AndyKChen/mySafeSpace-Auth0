@@ -25,6 +25,13 @@
   
 **myChat** is an **instant messaging web-app** that promotes mental health and digital citizenship. Users simply register a new account that is secured with a 256-bit encryption algorithm.
 
+**Try it here:** http://mysafespace.herokuapp.com/ <br>
+
+
+Submission to Auth0 Hackathon for category of **connecitivity** 
+
+## How it works
+
 **Safer Environment:** Perspective API used to determine if a message contains potentially toxic, insulting, racially insensitive, threatening, or sexually explicit content in real-time. If such a message is detected, user is prompted with a warning and short timeout to re-think their message. 
 <ul>
 	<li>Combat effects of cyberbullying and harrassment</li>
@@ -37,12 +44,6 @@
 
 It comes **filled** with **features** including a wide selection of cartoon avatars, the ability to add friends, create a social media profile, and create channels. The webapp is optimized for desktop and mobile devices
 
-**Try it here:** http://mysafespace.herokuapp.com/ <br>
-Mobile Users: Add to home screen to view in fullscreen.
-
-Since this is a prototype, if there are any bugs please contact me for fixes.
-
-Submission to Auth0 Hackathon for category of **connecitivity** 
 
 ## Inspiration
 With the rapid growth of the internet in recent years, has come greater connectivity between people all over the world. However, there is always the concern of digital safety when it comes to things like cyberbullying, harassment and predators online. 
@@ -50,7 +51,7 @@ With the rapid growth of the internet in recent years, has come greater connecti
 As the internet begins to play a larger role in our lives, it has become a medium for us to express our feelings and personal life. Especially with COVID-19 and social distancing, there is a greater need for online connectivity. A goal of this project was to use technology to improve conversations and to better understand our feelings and emotions. 
 
 
-## How I built it
+## Tech Stack & What I Used
 <ul>
 <li>Framework: Flask</li>
 <li>Languages: Python, Javascript, HTML/CSS/Jinja2, SQL</li>
@@ -61,6 +62,36 @@ As the internet begins to play a larger role in our lives, it has become a mediu
 <li>Machine Learning: NLTK, pandas, numpy, scikit-learn</li>
 <li>API: Perspective API, Google Cloud</li>
 </ul>
+
+## How to use it
+Simply visit mysafespace.herokuapp.com for live version
+
+Mobile Users: Add to home screen to view in fullscreen. Note it is not yet properly optimized for mobile.
+
+Since this is a prototype, if there are any bugs please contact me for fixes.
+
+For local deployment:
+
+```bash
+# Clone repo
+$ git clone https://github.com/AndyKChen/myChat.git
+
+# Install all dependencies
+$ pip install -r requirements.txt
+
+# Setup database using a tool such as adminer and get the credentials
+
+# Set Environment Variables
+$ SET DATABASE_URL = "your database"
+$ SET SECRET = "your secret key"
+$ SET FLASK_APP = app.py
+$ SET API_KEY = "api key from perspectiveAPI"
+
+# Run
+$ python app.py
+
+# Go to 127.0.0.1:5000 on your web browser.
+```
 
 ## Accomplishments that I'm proud of
 <ul>
