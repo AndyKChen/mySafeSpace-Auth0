@@ -21,7 +21,7 @@
 **Try it here:** http://mysafespace.herokuapp.com/ <br>
 
 
-Submission to Auth0 Hackathon for category of **connecitivity** 
+**Top 5 Submission for Category of Connectivity** (Auth0 Hackathon<a>https://devpost.com/software/mysafespace-iohfny?ref_content=user-portfolio&ref_feature=in_progress</a>
 
 ## How it works
 
