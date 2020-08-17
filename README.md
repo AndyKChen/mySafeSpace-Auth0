@@ -21,7 +21,7 @@
 **Try it here:** http://mysafespace.herokuapp.com/ <br>
 
 
-**Top 5 Submission for Category of Connectivity** (Auth0 Hackathon<a>https://devpost.com/software/mysafespace-iohfny?ref_content=user-portfolio&ref_feature=in_progress</a>
+**[Auth0 Hackathon](https://devpost.com/software/mysafespace-iohfny?ref_content=user-portfolio&ref_feature=in_progress): Top 5 Submission for Category of Connectivity** 
 
 ## How it works
 
@@ -62,28 +62,6 @@ Mobile Users: Add to home screen to view in fullscreen. Note it is not yet prope
 
 Since this is a prototype, if there are any bugs please contact me for fixes.
 
-For local deployment:
-
-```bash
-# Clone repo
-$ git clone https://github.com/AndyKChen/myChat.git
-
-# Install all dependencies
-$ pip install -r requirements.txt
-
-# Setup database using a tool such as adminer and get the credentials
-
-# Set Environment Variables
-$ SET DATABASE_URL = "your database"
-$ SET SECRET = "your secret key"
-$ SET FLASK_APP = app.py
-$ SET API_KEY = "api key from perspectiveAPI"
-
-# Run
-$ python app.py
-
-# Go to 127.0.0.1:5000 on your web browser.
-```
 
 ## Accomplishments that I'm proud of
 <ul>
