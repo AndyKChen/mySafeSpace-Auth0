@@ -92,9 +92,6 @@ def chat(friend):
     
     avatars = get_avatars()
 
-    
-
-    
     return render_template("chat.html", messages=messages, friends=friend_list, name=friend, avatars=avatars, names=names)
 
 
