@@ -35,7 +35,7 @@ socketio = SocketIO(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
-avatars = dict()
+
 
 names = dict()
 
@@ -53,7 +53,6 @@ def index():
 
         username = friend[0]
         
-        avatar = db.execute("SELECT avatar FROM user_info WHERE username=:username", {"username":username}).fetchone()[0]
         
         friend_id = db.execute("SELECT id FROM users WHERE username=:username", {"username":username}).fetchone()[0]
 
@@ -65,9 +64,10 @@ def index():
         except TypeError:
             msg = "No chats yet!"
 
-        avatars.update({username:avatar})
         messages.update({username:msg})
         names.update({friend[0]: name})
+
+    avatars = get_avatars()
 
     
     return render_template("index.html", friends=friend_list, user_info=user_info, avatars=avatars, messages=messages)
@@ -89,10 +89,9 @@ def chat(friend):
         JOIN chat_ids ON chat_ids.chat_id = messages.conversation_id \
         WHERE p1_id=:p1_id AND p2_id=:p2_id",
         {"p1_id": session["user_id"], "p2_id": friend_id}).fetchall()
-
     
+    avatars = get_avatars()
 
-    
     return render_template("chat.html", messages=messages, friends=friend_list, name=friend, avatars=avatars, names=names)
 
 
@@ -279,9 +278,6 @@ def friends():
         db.execute("INSERT INTO chat_ids (chat_id, p1_id, p2_id) VALUES (:chat_id, :p1_id, :p2_id)", {"chat_id":chat_id, "p1_id":friend_id, "p2_id":user_id})
         db.commit()
 
-        # update dictionary with avatar
-        avatar = db.execute("SELECT avatar FROM user_info WHERE username=:username", {"username":friend}).fetchone()[0]
-        avatars.update({friend:avatar})
 
         flash("Friend Added!")
 
@@ -292,6 +288,8 @@ def friends():
         for friend in friend_list:
             name = db.execute("SELECT first FROM users WHERE username=:username", {"username": friend[0]}).fetchone()[0]
             names.update({friend[0]: name})
+        
+        avatars = get_avatars()
 
         return render_template("friends.html", friends=friend_list, avatars=avatars, names=names)
 
@@ -325,6 +323,8 @@ def chats(channel_id):
     messages = db.execute("SELECT * FROM channel_messages WHERE channel_id=:channel_id", {"channel_id": channel_id})
 
     session["channel_id"] = channel_id
+
+    avatars = get_avatars()
 
 
     return render_template("channel_chat.html", channels=channels, avatars=avatars, user_info=user_info, messages=messages, current_channel=current_channel)
@@ -678,6 +678,17 @@ def checkSentiment(msg):
         return 'negative'
     else:
         return 'neutral'
+
+
+def get_avatars():
+    results = db.execute("SELECT username, avatar FROM user_info").fetchall()
+    
+    avatars = {}
+
+    for row in results:
+        avatars.update({row[0] : row[1]})
+
+    return avatars
 
 
 if __name__ == '__main__':
