@@ -1,8 +1,7 @@
 {% extends "layout.html" %}
 
 {% block head %}
-<link href="{{ url_for('static', filename='css/inbox.css') }}" type="text/css" rel="stylesheet" >
-
+<link href="{{ url_for('static', filename='css/inbox.css') }}" type="text/css" rel="stylesheet">
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
 {% endblock %}
 
@@ -11,14 +10,14 @@
 {% endblock %}
 
 {% block content %}
-
 <div class="inbox-container">
     <div id="frame">
         <div id="sidepanel">
           <div id="profile">
             <div class="wrap">
-              <img id="profile-img" src="{{'../static/avatars/' + user_info[1]+ '.png'}}" class="online" alt="" />
-              <p id="profile-name">{{user_info[0]}}</p>
+              <!-- Using dictionary-like access for user_info -->
+              <img id="profile-img" src="{{'../static/avatars/' + user_info['avatar'] + '.png'}}" class="online" alt="">
+              <p id="profile-name">{{user_info['first']}}</p>
               <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
               <div id="status-options">
                 <ul>
@@ -29,39 +28,39 @@
                 </ul>
               </div>
               <div id="expanded">
-                <label class="label-inbox" for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i>
-                <span class="label other">{{user_info[2]}}</span></label>
+                <!-- Accessing user social media links using dictionary-like access -->
+                <label class="label-inbox" for="facebook"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i>
+                <span class="label other">{{user_info['facebook']}}</span></label>
                 <label class="label-inbox" for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i>
-                <span class="label other">{{user_info[3]}}</span></label>
-                <label class="label-inbox" for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i>
-                <span class="label other">{{user_info[4]}}</span></label>
+                <span class="label other">{{user_info['twitter']}}</span></label>
+                <label class="label-inbox" for="instagram"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i>
+                <span class="label other">{{user_info['instagram']}}</span></label>
               </div>
             </div>
           </div>
           <div id="search">
             <label class="label-inbox" for=""><i class="fa fa-search" aria-hidden="true"></i></label>
-            <input type="text" placeholder="Search channels..." />
+            <input type="text" placeholder="Search channels...">
           </div>
           <div id="contacts">
             <ul>
               {% if not channels %}
-                <h3> No channels created yet :/</h3>
+                <h3>No channels created yet :/</h3>
               {% endif %}
-    
+
               {% for channel in channels %}
-              <a href="/channel/{{channel[0]}}">
+              <a href="/channel/{{channel['channel_id']}}">
                 <li class="contact">
                   <div class="wrap">
-                    <img src="{{'../static/channel_pics/' + channel[3] + '.png'}}" alt="" />
+                    <img src="{{'../static/channel_pics/' + channel['picture'] + '.png'}}" alt="">
                     <div class="meta">
-                      <p class="name">{{channel[1]}}</p>
-                      <p class="preview">{{channel[2]}}</p>
+                      <p class="name">{{channel['title']}}</p>
+                      <p class="preview">{{channel['topic']}}</p>
                     </div>
                   </div>
                 </li>
               </a>
               {% endfor %}
-    
             </ul>
           </div>
           <div id="bottom-bar">
@@ -71,18 +70,19 @@
         </div>
       </div>
 </div>
-  <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-  <script >
-  
+
+<!-- JavaScript for profile status and toggles -->
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script>
   $("#profile-img").click(function() {
       $("#status-options").toggleClass("active");
   });
-  
+
   $(".expand-button").click(function() {
     $("#profile").toggleClass("expanded");
-      $("#contacts").toggleClass("expanded");
+    $("#contacts").toggleClass("expanded");
   });
-  
+
   $("#status-options ul li").click(function() {
       $("#profile-img").removeClass();
       $("#status-online").removeClass("active");
@@ -105,8 +105,6 @@
       
       $("#status-options").removeClass("active");
   });
-  
-
-  </script>
+</script>
 
 {% endblock %}

@@ -2,11 +2,11 @@
 
 {% block head %}
 <script src="{{ url_for('static', filename='js/channel.js') }}"></script>
-<link href="{{ url_for('static', filename='css/chat.css') }}" type="text/css" rel="stylesheet" >
+<link href="{{ url_for('static', filename='css/chat.css') }}" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block title %}
-    Direct Messages
+    Channel Messages
 {% endblock %}
 
 {% block content %}
@@ -15,15 +15,20 @@
     <div class="container" style="padding-top: 5vh;">
         <div class="chatcontainer"></div>
         <div class="text-center">
-            <h3 img style="display: inline;" ><img src="{{'../static/channel_pics/' + current_channel[3] + '.png'}}" width=40vw alt="" class="text-center"></h3>
-            <h3 img style="display: inline;">#{{current_channel[1]}}</h3>
-            <p class="text-center">{{current_channel[2]}}</p>
+            <!-- Accessing current channel using column names -->
+            <h3 img style="display: inline;">
+                <img src="{{'../static/channel_pics/' + current_channel['picture'] + '.png'}}" width="40vw" alt="" class="text-center">
+            </h3>
+            <h3 img style="display: inline;">#{{current_channel['title']}}</h3>
+            <p class="text-center">{{current_channel['topic']}}</p>
         </div>
 
-          <div class="row">
+        <div class="row">
             {% for channel in channels %}  
-            <div id ="icon" style="margin-right: 10px">
-              <a href="/channel/{{channel[0]}}"><img src="{{'../static/channel_pics/' + channel[3] + '.png'}}" width=40vw alt="" /></a>
+            <div id="icon" style="margin-right: 10px">
+              <a href="/channel/{{channel['channel_id']}}">
+                  <img src="{{'../static/channel_pics/' + channel['picture'] + '.png'}}" width="40vw" alt="">
+              </a>
             </div>
             {% endfor %}
         </div>
@@ -39,24 +44,24 @@
                     <p id="new_friend">Woohoo! A new channel! </p>
                   {% endif %}
                   {% for message in messages %}
-                    {% if message[5] == session.username %}
+                    {% if message["sender_name"] == session.username %}
                     <div class="outgoing_msg">
                       <div class="sent_msg">
-                        <p>{{message[1]}}</p>
-                        <span class="time_date">{{message[2]}}</span> </div>
+                        <p>{{message["message"]}}</p>
+                        <span class="time_date">{{message["timestamp"]}}</span>
+                      </div>
                     </div>
                     {% else %}
                     <div class="incoming_msg">
                         <div class="incoming_msg_img"> 
                             <img src="{{'../static/avatars/' + avatars[message['sender_name']] + '.png'}}" alt="">
                         </div>
-                        
-                      </figure>
                       <div class="received_msg">
                         <div class="received_withd_msg" aria-describedby="name">
                           <small id="name">{{message["sender_name"]}}</small>
-                          <p>{{message[1]}}</p>
-                          <span class="time_date">{{message[2]}}</span></div>
+                          <p>{{message["message"]}}</p>
+                          <span class="time_date">{{message["timestamp"]}}</span>
+                        </div>
                       </div>
                     </div>
                     {% endif %}
@@ -67,7 +72,8 @@
                     <div class="outgoing_msg">
                       <div class="sent_msg">
                         <p data-template="temp_message"></p>
-                        <span class="time_date" data-template="temp_time"></span> </div>
+                        <span class="time_date" data-template="temp_time"></span>
+                      </div>
                     </div>
                   </template>
                   <!--template for javascript incoming-->
@@ -79,7 +85,8 @@
                         <div class="received_withd_msg" aria-describedby="name">
                           <small id="name" data-template="sender">User</small>
                           <p data-template="temp_message"></p>
-                          <span class="time_date" data-template="temp_time"></span></div>
+                          <span class="time_date" data-template="temp_time"></span>
+                        </div>
                       </div>
                   </template>
                 </div>
@@ -93,6 +100,7 @@
             </div>  
           </div>
     </div>
+
     <div class="modal fade" id="popup" tabindex="-1" role="dialog" aria-labelledby="popup" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -110,8 +118,7 @@
         </div>
       </div>
     </div>
-    <button id="modal-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup" style="visibility: hidden;">
-    </button>
+    <button id="modal-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup" style="visibility: hidden;"></button>
 </body>
 
 <style>

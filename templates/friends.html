@@ -5,37 +5,39 @@
 {% endblock %}
 
 {% block content %}
-    <div class="main">
-        <div class="container" style="padding-top: 5vh;">
-            <h2 class="text-center">My Friends</h2>
-                {% if friends == None %}
-                    <h4>No friends yet :/ Add one now!</h4>
-                {% endif %}
-                <div class="row">
-                {% for friend in friends %}
-                    <figure class="figure" style="font-family: sans-serif; font-weight: regular; color:grey">
-                        <a href="/chat/{{friend[0]}}" class="btn"><img src="{{'../static/avatars/' + avatars[friend[0]] + '.png'}}" width=40px alt=""></a>
-                        <figcaption class="text-center">{{names[friend[0]]}}</figcaption>
-                    </figure>                
-                {% endfor %}
-                </div>
-                <p>Search friend by username below.</p>
-                <form method="POST" class="register-form" id="login-form">
-                    <div class="form-group">
-                        <input type=text name="friend" placeholder="Enter a username">
-                    </div>
-                    <div class="form-group form-button padding">
-                        <input type="submit" name="add" id="add" class="form-submit" value="Add Friend"/>
-                    </div>
-                </form>
+<div class="main">
+    <div class="container" style="padding-top: 5vh;">
+        <h2 class="text-center">My Friends</h2>
+        {% if friends == None %}
+            <h4>No friends yet :/ Add one now!</h4>
+        {% endif %}
+        <div class="row">
+            {% for friend in friends %}
+                <figure class="figure" style="font-family: sans-serif; font-weight: regular; color:grey">
+                    <a href="/chat/{{friend['username']}}" class="btn">
+                        <img src="{{'../static/avatars/' + avatars[friend['username']] + '.png'}}" width="40px" alt="">
+                    </a>
+                    <figcaption class="text-center">{{names[friend['username']]}}</figcaption>
+                </figure>
+            {% endfor %}
         </div>
+        <p>Search friend by username below.</p>
+        <form method="POST" class="register-form" id="login-form">
+            <div class="form-group">
+                <input type="text" name="friend" placeholder="Enter a username">
+            </div>
+            <div class="form-group form-button padding">
+                <input type="submit" name="add" id="add" class="form-submit" value="Add Friend"/>
+            </div>
+        </form>
     </div>
+</div>
 
 <style>
   .row {
       list-style-type: none;
       display: inline-block;
-      padding-left:10px;
+      padding-left: 10px;
       overflow-x: scroll;
       white-space: nowrap;
   }

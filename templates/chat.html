@@ -10,123 +10,129 @@
 {% endblock %}
 
 {% block content %}
-
 <body>
     <div class="container">
-      <div class="mesgs">
-          <div class="row">
-            {% for friend in friends %}
-            <figure class="figure" style="font-family: sans-serif; font-weight: regular; color:grey">
-              
-              <a href="/chat/{{friend[0]}}" class="btn"><img src="{{'../static/avatars/' + avatars[friend[0]] + '.png'}}" width=40px alt=""></a>
-              <figcaption class="text-center">{{names[friend[0]]}}</figcaption>
-            </figure>
-            {% endfor %}
+        <div class="mesgs">
+            <div class="row">
+                {% for friend in friends %}
+                <figure class="figure" style="font-family: sans-serif; font-weight: regular; color:grey">
+                  <a href="/chat/{{friend['username']}}" class="btn">
+                    <img src="{{'../static/avatars/' + avatars[friend['username']] + '.png'}}" width=40px alt="">
+                  </a>
+                  <figcaption class="text-center">{{names[friend['username']]}}</figcaption>
+                </figure>
+                {% endfor %}
+            </div>
+            <div class="text-center" style="padding-bottom: 10px;">
+                <h3 img style="display: inline;" >
+                    <img src="{{'../static/avatars/' + avatars[name] + '.png'}}" width=50vw alt="" class="text-center">
+                </h3>
+                <h3 img style="display: inline;" id="get-username">{{name}}</h3>
+            </div>
         </div>
-        <div class="text-center" style="padding-bottom: 10px;">
-          <h3 img style="display: inline;" ><img src="{{'../static/avatars/' + avatars[name] + '.png'}}" width=50vw alt="" class="text-center"></h3>
-          <h3 img style="display: inline;" id="get-username">{{name}}</h3>
-        </div>
-      </div>
         <div class="messaging">
-          <div class="inbox_msg">
-              <div class="mesgs">
-                <div class="msg_history" id="newmsg">
-                  {% if not messages %}
-                    <p id="new_friend" style="margin: 15px">Say hi to your new friend!</p>
-                  {% endif %}
-                  {% for message in messages %}
-                    {% if message["sender"] == session.user_id %}
-                    <div class="outgoing_msg">
-                      <div class="sent_msg">
-                        <p>{{message[3]}}</p>
-                        <span class="time_date">{{message[2]}}</span> </div>
+            <div class="inbox_msg">
+                <div class="mesgs">
+                    <div class="msg_history" id="newmsg">
+                        {% if not messages %}
+                            <p id="new_friend" style="margin: 15px">Say hi to your new friend!</p>
+                        {% endif %}
+                        {% for message in messages %}
+                            {% if message["sender"] == session.user_id %}
+                            <div class="outgoing_msg">
+                                <div class="sent_msg">
+                                    <p>{{message["message"]}}</p>
+                                    <span class="time_date">{{message["time"]}}</span>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="incoming_msg">
+                                <div class="incoming_msg_img"> 
+                                    <img src="{{'../static/avatars/' + avatars[name] + '.png'}}" alt=""> 
+                                </div>
+                                <div class="received_msg">
+                                    <div class="received_withd_msg">
+                                        <p>{{message["message"]}}</p>
+                                        <span class="time_date">{{message["time"]}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                        <!--template for javascript outgoing-->
+                        <template id="outgoing_template">
+                            <div class="outgoing_msg">
+                                <div class="sent_msg">
+                                    <p data-template="temp_message"></p>
+                                    <span class="time_date" data-template="temp_time"></span>
+                                </div>
+                            </div>
+                        </template>
+                        <!--template for javascript incoming-->
+                        <template id="incoming_template">
+                            <div class="incoming_msg_img"> 
+                                <img src="{{'../static/avatars/' + avatars[name] + '.png'}}" alt=""> 
+                            </div>
+                            <div class="received_msg">
+                                <div class="received_withd_msg">
+                                    <p data-template="temp_message"></p>
+                                    <span class="time_date" data-template="temp_time"></span>
+                                </div>
+                            </div>
+                        </template>
                     </div>
-                    {% else %}
-                    <div class="incoming_msg">
-                      <div class="incoming_msg_img"> <img src="{{'../static/avatars/' + avatars[name] + '.png'}}" alt=""> </div>
-                      <div class="received_msg">
-                        <div class="received_withd_msg">
-                          <p>{{message[3]}}</p>
-                          <span class="time_date">{{message[2]}}</span></div>
-                      </div>
+                    <div class="type_msg">
+                        <div class="input_msg_write">
+                            <input id="text" type="text" class="write_msg" placeholder="Type a message">
+                            <button id="button-send" class="msg_send_btn" type="button">
+                                <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                            </button>
+                        </div>
                     </div>
-                    {% endif %}
-                  {% endfor %}
-                  <!--template for javascript outgoing-->
-                  <template id="outgoing_template">
-                    <div class="outgoing_msg">
-                      <div class="sent_msg">
-                        <p data-template="temp_message"></p>
-                        <span class="time_date" data-template="temp_time"></span> </div>
-                    </div>
-                  </template>
-                  <!--template for javascript incoming-->
-                  <template id="incoming_template">
-                    <div class="incoming_msg_img"> <img src="{{'../static/avatars/' + avatars[name] + '.png'}}" alt=""> </div>
-                      <div class="received_msg">
-                        <div class="received_withd_msg">
-                          <p data-template="temp_message"></p>
-                          <span class="time_date" data-template="temp_time"></span></div>
-                      </div>
-                  </template>
-  
                 </div>
-                <div class="type_msg">
-                  <div class="input_msg_write">
-                    <input id="text" type="text" class="write_msg" placeholder="Type a message" />
-                    <button id="button-send" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
-                  </div>
-                </div>
-              </div>
             </div>  
-          </div>
-   </div>
-  <div class="modal fade" id="popup" tabindex="-1" role="dialog" aria-labelledby="popup" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <i class="fa fa-exclamation-triangle" aria-hidden="true" style="display:inline-block">
-            <h5 class="modal-title" id="exampleModalLabel" style="display: inline-block;">Warning!</h5>
-          </i>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
-        <div class="modal-body">
-          <p id="warning-msg"></p>
-        </div>
-      </div>
     </div>
-  </div>
-  <button id="modal-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup" style="visibility: hidden;">
-  </button>
+
+    <div class="modal fade" id="popup" tabindex="-1" role="dialog" aria-labelledby="popup" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true" style="display:inline-block"></i>
+                    <h5 class="modal-title" id="exampleModalLabel" style="display: inline-block;">Warning!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="warning-msg"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="modal-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup" style="visibility: hidden;"></button>
 </body>
 
 <style>
   .row {
       list-style-type: none;
       display: inline-block;
-      padding-left:10px;
+      padding-left: 10px;
       overflow-x: scroll;
       white-space: nowrap;
   }
-
   .row::-webkit-scrollbar {
     display: none;
   }
-
   .figure {
       display: inline-block;
   }
-
-
 </style>
 
 <script>
   function togglePopup(){
     document.getElementById("popup-1").classList.toggle("active");
-    }
+  }
 </script>
-    
 {% endblock %}

@@ -7,41 +7,84 @@
 {% block content %}
 <div class="main">
     <div class="container padding">
-        
+
+        <!-- Avatar Change Form -->
         <form method="POST" class="create-form padding" style="padding-top: 5vh;">
             <h2>User Settings</h2>
             <h4>Choose Your Avatar</h4><br>
-            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="beard"><img src="../static/avatars/beard.png" width="38vw"></button>
-            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="orange"><img src="../static/avatars/orange.png" width="38vw"></button>
-            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="boujie"><img src="../static/avatars/boujie.png" width="38vw"></button>
-            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="suit"><img src="../static/avatars/suit.png" width="38vw"></button>
-            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="earrings"><img src="../static/avatars/earrings.png" width="38vw"></button><br>
-            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="dog"><img src="../static/avatars/dog.png" width="38vw"></button>
-            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="pig"><img src="../static/avatars/pig.png" width="38vw"></button>
-            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="panda"><img src="../static/avatars/panda.png" width="38vw"></button>
-            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="penguin"><img src="../static/avatars/penguin.png" width="38vw"></button>
-            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="frog"><img src="../static/avatars/frog.png" width="38vw"></button>
+            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="beard">
+                <img src="../static/avatars/beard.png" width="38vw">
+            </button>
+            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="orange">
+                <img src="../static/avatars/orange.png" width="38vw">
+            </button>
+            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="boujie">
+                <img src="../static/avatars/boujie.png" width="38vw">
+            </button>
+            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="suit">
+                <img src="../static/avatars/suit.png" width="38vw">
+            </button>
+            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="earrings">
+                <img src="../static/avatars/earrings.png" width="38vw">
+            </button><br>
+            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="dog">
+                <img src="../static/avatars/dog.png" width="38vw">
+            </button>
+            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="pig">
+                <img src="../static/avatars/pig.png" width="38vw">
+            </button>
+            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="panda">
+                <img src="../static/avatars/panda.png" width="38vw">
+            </button>
+            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="penguin">
+                <img src="../static/avatars/penguin.png" width="38vw">
+            </button>
+            <button class="btn btn-light btn-circle btn-xl barmargin" name="avatar" value="frog">
+                <img src="../static/avatars/frog.png" width="38vw">
+            </button>
         </form>
+
+        <!-- Social Media Update Form -->
         <form method="POST" class="create-form">
             <h4>Social Media</h4>
+
             <div class="form-group">
                 <label class="login-register" for="facebook"><i class="fa fa-facebook fa-fw"></i></label>
-                <input type="text" name="facebook" placeholder="Facebook" required/>
+                <input type="text" name="facebook" placeholder="Facebook" value="{{user_info['facebook']}}" required />
             </div>
+
             <div class="form-group">
                 <label class="login-register" for="twitter"><i class="fa fa-twitter fa-fw"></i></label>
-                <input type="text" name="twitter" placeholder="Twitter" required/>
+                <input type="text" name="twitter" placeholder="Twitter" value="{{user_info['twitter']}}" required />
             </div>
+
             <div class="form-group">
                 <label class="login-register" for="instagram"><i class="fa fa-instagram fa-fw"></i></label>
-                <input type="text" name="instagram" placeholder="Instagram" required/>
+                <input type="text" name="instagram" placeholder="Instagram" value="{{user_info['instagram']}}" required />
             </div>
+
             <div class="form-group form-button">
-                <input type="submit" name="socails" id="socials" class="form-submit" value="Update"/>
+                <input type="submit" name="socials" id="socials" class="form-submit" value="Update" />
             </div>
         </form>
     </div>
 </div>
-    
-{% endblock %}
 
+<style>
+    .btn-circle {
+        border-radius: 50%;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .barmargin {
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .padding {
+        padding: 20px;
+    }
+</style>
+
+{% endblock %}
