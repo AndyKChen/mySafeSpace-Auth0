@@ -38,7 +38,7 @@
                             <p id="new_friend" style="margin: 15px">Say hi to your new friend!</p>
                         {% endif %}
                         {% for message in messages %}
-                            {% if message["sender"] == session.user_id %}
+                            {% if message["sender_id"] == session.user_id %}
                             <div class="outgoing_msg">
                                 <div class="sent_msg">
                                     <p>{{message["message"]}}</p>

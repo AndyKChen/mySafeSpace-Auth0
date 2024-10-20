@@ -57,7 +57,7 @@ class ChannelMessage(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     channel_id = Column(String, ForeignKey('channels.channel_id'), nullable=False)
     message = Column(Text, nullable=False)
-    timestamp = Column(DateTime, default=func.now())
+    time = Column(DateTime, default=func.now())
     sender = Column(Integer, ForeignKey('users.id'), nullable=False)
     sender_name = Column(String, nullable=False)
     sentiment = Column(String, nullable=False)
@@ -90,7 +90,8 @@ class Channel(Base):
 # Chat IDs (to manage 1-on-1 chat relationships)
 class ChatID(Base):
     __tablename__ = 'chat_ids'
-    chat_id = Column(String, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    chat_id = Column(String)
     p1_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     p2_id = Column(Integer, ForeignKey('users.id'), nullable=False)
 
@@ -108,4 +109,5 @@ class Friendship(Base):
 
 # Apply models to database
 def init_db(engine):
+    # Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)

@@ -28,11 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
 
-            let timestamp = new Date;
-            timestamp = timestamp.toLocaleTimeString();
+            let date = new Date;
+            timestamp = date.toLocaleTimeString();
+            date = date.toLocaleDateString();
             
 
-            socket.emit('send message', msg, timestamp, recipient);
+            socket.emit('send message', msg, timestamp, recipient, date);
 
             document.getElementById("text").value = '';
         });

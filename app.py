@@ -73,8 +73,8 @@ def index():
         try:
             # Fetch the last message between the session user and the friend
             msg = db.execute(
-                text("SELECT message FROM messages WHERE (sender_id=:sender_id AND reciever=:reciever) OR (sender_id=:reciever and reciever=:sender_id) ORDER BY time DESC"),
-                {"sender_id": session["user_id"], "reciever": friend_id}
+                text("SELECT message FROM messages WHERE (sender_id=:sender_id AND reciever_id=:reciever_id) OR (sender_id=:reciever_id and reciever_id=:sender_id) ORDER BY time DESC"),
+                {"sender_id": session["user_id"], "reciever_id": friend_id}
             ).mappings().fetchone()['message']
         except TypeError:
             msg = "No chats yet!"
@@ -118,7 +118,7 @@ def chat(friend):
 
     # Fetch the messages between the user and the friend
     messages = db.execute(
-        text("SELECT messages.sender_id, messages.reciever, messages.time, messages.message FROM messages \
+        text("SELECT messages.sender_id, messages.reciever_id, messages.time, messages.message FROM messages \
               JOIN chat_ids ON chat_ids.chat_id = messages.conversation_id \
               WHERE p1_id=:p1_id AND p2_id=:p2_id"),
         {"p1_id": session["user_id"], "p2_id": friend_id}
@@ -457,7 +457,7 @@ def settings():
 
 
 @socketio.on("send message")
-def send_msg(msg, timestamp, recipient):
+def send_msg(msg, timestamp, recipient, date):
     # Analyze the message content for harmful attributes
     attribute = checkScore(msg)
 
@@ -507,6 +507,8 @@ def send_msg(msg, timestamp, recipient):
         convo_id = convo_data['chat_id']
 
         # Insert the message into the database
+        print(timestamp, type(timestamp))
+        print(date, type(date))
         db.execute(
             text("INSERT INTO messages (conversation_id, sender_id, reciever_id, time, message, sentiment) "
                  "VALUES (:conversation_id, :sender_id, :reciever_id, :time, :message, :sentiment)"),
@@ -514,7 +516,7 @@ def send_msg(msg, timestamp, recipient):
                 "conversation_id": convo_id,
                 "sender_id": session["user_id"],
                 "reciever_id": friend_id,
-                "time": timestamp,
+                "time": date,
                 "message": msg,
                 "sentiment": sentiment,
             }
@@ -548,15 +550,15 @@ def dashboard():
     ).mappings().fetchall()
 
     channel_sentiments = db.execute(
-        text("SELECT timestamp AS time, sentiment FROM channel_messages WHERE timestamp >= :timestamp AND sender = :user_id"),
-        {"timestamp": dates[0], "user_id": session['user_id']}
+        text("SELECT time, sentiment FROM channel_messages WHERE time >= :time AND sender = :user_id"),
+        {"time": dates[0], "user_id": session['user_id']}
     ).mappings().fetchall()
 
     sentiments = msg_sentiments + channel_sentiments
 
     total_channel_msgs = db.execute(
-        text("SELECT timestamp AS time FROM channel_messages WHERE sender = :user_id AND timestamp >= :timestamp"),
-        {"user_id": session['user_id'], "timestamp": dates[0]}
+        text("SELECT time FROM channel_messages WHERE sender = :user_id AND time >= :time"),
+        {"user_id": session['user_id'], "time": dates[0]}
     ).mappings().fetchall()
 
     total_chat_msgs = db.execute(
@@ -644,17 +646,17 @@ def channel_msg(msg, timestamp, sender):
         sender_id = sender_data["id"]
 
         # Insert the message into the channel_messages table
+        print(timestamp, type(timestamp))
         db.execute(
-            text("INSERT INTO channel_messages (channel_id, message, timestamp, sender, sender_name, sentiment) "
-                 "VALUES (:channel_id, :message, :timestamp, :sender, :sender_name, :sentiment)"),
+            text("INSERT INTO channel_messages (channel_id, message, time, sender, sender_name, sentiment) "
+                 "VALUES (:channel_id, :message, :time, :sender, :sender_name, :sentiment)"),
             {
                 "channel_id": session["channel_id"],
                 "message": msg,
-                "timestamp": timestamp,
+                "time": timestamp,
                 "sender": sender_id,
                 "sender_name": sender,
                 "sentiment": sentiment,
-                "timestamp": datetime.now()
             }
         )
         db.commit()
@@ -712,7 +714,7 @@ def friends(user_id):
         UNION SELECT users.username FROM friendships \
         JOIN users ON users.id = friendships.person_id2\
         WHERE friendships.person_id1=:user_id "),
-        {"user_id":user_id, "user_id":user_id, "user_id":user_id}).fetchall()
+        {"user_id":user_id, "user_id":user_id, "user_id":user_id}).mappings().fetchall()
 
     return friends
 
